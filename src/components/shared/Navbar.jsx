@@ -81,7 +81,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-[#E0D9D0]/50 bg-transparent backdrop-blur-sm">
+        <div className="md:hidden border-t border-[#E0D9D0]/50 bg-black/20  backdrop-blur-sm">
           {navLinks.map(({ label, href, icon: Icon }) => {
             const isActive = pathname === href;
             return (
