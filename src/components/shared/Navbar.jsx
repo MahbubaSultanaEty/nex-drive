@@ -33,7 +33,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav links — pill container with low opacity bg */}
-        <nav className="hidden md:flex items-center gap-1 bg-[#1A1A1A]/8 border border-[#E0D9D0] rounded-full px-2 py-1.5">
+        <nav className="hidden md:flex items-center gap-1 bg-[#1A1A1A]/70 border border-[#E0D9D0] rounded-full px-2 py-1.5">
           {navLinks.map(({ label, href, icon: Icon }) => {
             const isActive = pathname === href;
             return (
@@ -81,7 +81,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-[#E0D9D0]/50 bg-black/20  backdrop-blur-sm">
+        <div className="md:hidden border-t border-[#E0D9D0]/50 bg-black/70  backdrop-blur-sm">
           {navLinks.map(({ label, href, icon: Icon }) => {
             const isActive = pathname === href;
             return (

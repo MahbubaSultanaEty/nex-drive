@@ -15,10 +15,8 @@ const stats = [
 ];
 
 export default function Banner() {
-  return (
-    <div className="relative">
-
- <section className="absolute top-0 w-full min-h-screen bg-[#1A0A0A] overflow-hidden flex items-center ">
+  return (  
+ <section className="relative  w-full min-h-screen bg-[#1A0A0A] overflow-hidden flex items-center pb-10">
 
       {/* Background texture */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_#2C1010_0%,_#0D0D0D_70%)] " />
@@ -85,10 +83,8 @@ export default function Banner() {
         {/* Right — Interactive car slider */}
         <BannerSlider />
 
-      </div>
-    </section>
-    </div>
-
-   
+        </div>
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-[#F8F5F0]" />
+    </section>  
   );
 }

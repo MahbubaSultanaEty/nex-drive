@@ -1,10 +1,12 @@
 import Banner from "@/components/homepage/Banner";
+import CustomerService from "@/components/homepage/CustomerService";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <>
-      <Banner/>
+      <Banner />
+      <CustomerService/>
     </>
   );
 }
