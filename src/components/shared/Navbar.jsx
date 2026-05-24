@@ -27,7 +27,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
           <span className="w-2 h-2 rounded-full bg-[#C0392B]" />
-          <span className="text-2xl font-bold tracking-wide text-[ivory]">
+          <span className="text-2xl font-bold tracking-wide text-[#C0392B]">
             Nex<span className="text-[#C0392B]">Drive</span>
           </span>
         </Link>
@@ -74,7 +74,7 @@ export default function Navbar() {
             aria-label="Toggle menu"
             className="text-[#1A1A1A] p-1"
           >
-            {menuOpen ? <RiCloseLine color="ivory" size={22} /> : <RiMenuLine color="ivory" size={22} />}
+            {menuOpen ? <RiCloseLine color="#C0392B" size={22} /> : <RiMenuLine color="#C0392B" size={22} />}
           </button>
         </div>
       </div>
