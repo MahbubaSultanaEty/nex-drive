@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@heroui/styles"; 
 
 [data-theme="light"] {
   background-color: #F8F5F0;

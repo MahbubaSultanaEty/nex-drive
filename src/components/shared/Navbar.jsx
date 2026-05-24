@@ -20,14 +20,14 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-transparent backdrop-blur-sm md:border-b-0  border-b border-[#E0D9D0]/40">
+    <header className="sticky top-0 z-50 bg-black/20 backdrop-blur-sm md:border-b-0  border-b border-[#E0D9D0]/40">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
    
               
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
           <span className="w-2 h-2 rounded-full bg-[#C0392B]" />
-          <span className="text-2xl font-bold tracking-wide text-[#C0392B]">
+          <span className="text-2xl font-bold tracking-wide text-[ivory] ">
             Nex<span className="text-[#C0392B]">Drive</span>
           </span>
         </Link>
