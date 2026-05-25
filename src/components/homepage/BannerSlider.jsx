@@ -51,12 +51,13 @@ export default function BannerSlider() {
           src={carImages[current].src}
           alt={carImages[current].angle}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-opacity duration-500"
           priority
         />
 
         {/* Gradient overlay bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A0A0A]/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#1A0A0A]/60 via-transparent to-transparent" />
 
         {/* Angle label */}
         <span className="absolute bottom-4 left-4 text-xs font-medium tracking-widest uppercase text-[#F8F5F0]/70 bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-sm">

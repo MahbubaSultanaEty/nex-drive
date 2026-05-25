@@ -35,10 +35,19 @@ const inputWrapperClass = "w-full bg-[#F8F5F0] border border-[#E0D9D0] rounded-x
 export default function AddCarPage() {
   const [imageUrl, setImageUrl] = useState("");
 
-  const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+      const car = Object.fromEntries(formData.entries());
+        
+      const res = await fetch("http://localhost:5000/cars", {
+          method: "POST",
+          headers: {
+              "content-type": "application/json"
+          },
+          body: JSON.stringify(car)
+      })
+        const data= await res.json()
     console.log(data);
   };
 
