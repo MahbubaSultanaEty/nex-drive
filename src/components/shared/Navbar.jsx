@@ -27,7 +27,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
           <span className="w-2 h-2 rounded-full bg-[#C0392B]" />
-          <span className="text-2xl font-bold tracking-wide text-[ivory] ">
+          <span className="text-2xl font-bold tracking-wide text-[rgb(255,255,240)] ">
             Nex<span className="text-[#C0392B]">Drive</span>
           </span>
         </Link>
