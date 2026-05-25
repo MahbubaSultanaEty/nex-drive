@@ -1,105 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RiMapPinLine, RiUserLine, RiSearchLine, RiCloseLine } from "react-icons/ri";
-import { TbManualGearbox } from "react-icons/tb";
-import { BsArrowRight } from "react-icons/bs";
+import {  RiSearchLine, RiCloseLine } from "react-icons/ri";
+
+import CarCard from "./CarCard";
+import { Button } from "@heroui/react";
 
 const carTypes = ["All", "Sedan", "SUV", "Hatchback", "Luxury", "Electric", "Convertible", "Pickup Truck"];
-
-const cars = [
-  {
-    _id: "6a1412705366d793d1489077",
-    carName: "Audi R8 Spyder",
-    dailyRentPrice: "89",
-    carType: "Luxury",
-    seats: "6",
-    availability: "Available",
-    imageUrl: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=800&q=80",
-    location: "Dhaka, Gulshan-1",
-    description: "Experience the thrill of V10 performance. This convertible supercar combines raw power with everyday usability.",
-  },
-  {
-    _id: "6a1412705366d793d1489078",
-    carName: "BMW M3 Competition",
-    dailyRentPrice: "75",
-    carType: "Sedan",
-    seats: "4",
-    availability: "Available",
-    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
-    location: "Dhaka, Banani",
-    description: "The ultimate sports sedan. Aggressive styling, track-ready performance, and premium German engineering.",
-  },
-  {
-    _id: "6a1412705366d793d1489079",
-    carName: "Mercedes GLE 450",
-    dailyRentPrice: "110",
-    carType: "SUV",
-    seats: "7",
-    availability: "Available",
-    imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
-    location: "Dhaka, Dhanmondi",
-    description: "Commanding presence meets luxurious comfort. Perfect for family trips or business travel in style.",
-  },
-  {
-    _id: "6a1412705366d793d1489080",
-    carName: "Tesla Model S",
-    dailyRentPrice: "95",
-    carType: "Electric",
-    seats: "5",
-    availability: "Available",
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80",
-    location: "Dhaka, Gulshan-2",
-    description: "Zero emissions, maximum performance. The future of driving with autopilot and 400mi range.",
-  },
-  {
-    _id: "6a1412705366d793d1489081",
-    carName: "Porsche 911 Carrera",
-    dailyRentPrice: "150",
-    carType: "Luxury",
-    seats: "4",
-    availability: "Available",
-    imageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80",
-    location: "Dhaka, Uttara",
-    description: "An icon of automotive excellence. Timeless design fused with cutting-edge Porsche performance.",
-  },
-  {
-    _id: "6a1412705366d793d1489082",
-    carName: "Range Rover Sport",
-    dailyRentPrice: "120",
-    carType: "SUV",
-    seats: "7",
-    availability: "Unavailable",
-    imageUrl: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80",
-    location: "Dhaka, Mirpur",
-    description: "Refined luxury meets serious off-road capability. The definitive British premium SUV experience.",
-  },
-  {
-    _id: "6a1412705366d793d1489083",
-    carName: "Toyota Supra MK5",
-    dailyRentPrice: "65",
-    carType: "Sedan",
-    seats: "2",
-    availability: "Available",
-    imageUrl: "https://images.unsplash.com/photo-1627369500473-2c6e75551f03?w=800&q=80",
-    location: "Dhaka, Motijheel",
-    description: "A legend reborn. The MK5 Supra brings back the iconic nameplate with BMW-sourced inline-six power.",
-  },
-  {
-    _id: "6a1412705366d793d1489084",
-    carName: "Lamborghini Urus",
-    dailyRentPrice: "200",
-    carType: "SUV",
-    seats: "5",
-    availability: "Available",
-    imageUrl: "https://images.unsplash.com/photo-1573950940509-d924ee3fd345?w=800&q=80",
-    location: "Dhaka, Gulshan-1",
-    description: "The world's most powerful SUV. Lamborghini DNA wrapped in a practical yet dramatic package.",
-  },
-];
 
 // Framer Motion corner decoration
 function CornerDecoration() {
@@ -156,17 +64,47 @@ function NoResults() {
   );
 }
 
+function Loading() {
+    return <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
+       <div className="skeleton  h-75 w-full"></div>
+       <div className="skeleton h-75 w-full"></div>
+       <div className="skeleton h-75 w-full"></div>
+    </div>
+}
+
 export default function CarsPage() {
   const [search, setSearch] = useState("");
-  const [activeType, setActiveType] = useState("All");
+    const [activeType, setActiveType] = useState("All");
+    const [cars, setCars] = useState([]);
+    const [loading, setLoading] = useState(true)
+    
+    const fetchCars=()=> {
+       
+        const params = new URLSearchParams();
+        if(search)params.append("search", search)
+        if (activeType !== "All") {
+            params.append("type", activeType);
+        };
 
-  // Filter logic — will be replaced with API call later
-  const filtered = cars.filter((car) => {
-    const matchSearch = car.carName.toLowerCase().includes(search.toLowerCase());
-    const matchType = activeType === "All" || car.carType === activeType;
-    return matchSearch && matchType;
-  });
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars?${params}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setCars(data);
+                setLoading(false)
+            })
+            .catch((err) => {
+                console.log(err);
+                 setLoading(false)
+            })
+    };
 
+        useEffect(() => {
+        fetchCars();
+    }, [activeType]);
+
+    const handleSearch =
+        () => fetchCars();
   return (
     <div className="min-h-screen bg-[#F8F5F0] pt-20">
 
@@ -208,8 +146,8 @@ export default function CarsPage() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
 
           {/* Search */}
-          <div className="relative w-full sm:w-72">
-            <RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6560]" size={16} />
+          <div className="relative w-full sm:w-72 flex">
+            <RiSearchLine className="absolute left-3 top-5 -translate-y-1/2 text-[#6B6560]" size={16} />
             <input
               type="text"
               value={search}
@@ -217,17 +155,24 @@ export default function CarsPage() {
               placeholder="Search by car name..."
               className="w-full bg-white border border-[#E0D9D0] rounded-xl pl-9 pr-9 py-2.5 text-sm text-[#1A1A1A] placeholder:text-[#C4BDB7] focus:outline-none focus:border-[#C0392B] transition-colors duration-200"
             />
-            {search && (
-              <button
+                      {search && (
+                          <>
+                                 <button
                 onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6560] hover:text-[#C0392B]"
+                className="absolute right-20 top-5 -translate-y-1/2 text-[#6B6560] hover:text-[#C0392B]"
               >
                 <RiCloseLine size={16} />
-              </button>
-            )}
+                              </button>  
+                              <Button className=" border-[#C0392B] rounded-2xl btn hover:text-[#C0392B] "
+                      variant="outline"    onClick={handleSearch}>Search</Button>
+                          </>
+                                  
+                      )}
+                      
+                      
           </div>
 
-          {/* Filter chips */}
+          {/* Filter tabs */}
           <div className="flex items-center gap-2 flex-wrap">
             {carTypes.map((type) => (
               <button
@@ -249,104 +194,29 @@ export default function CarsPage() {
         {/* Results count */}
         <div className="max-w-7xl mx-auto px-6 pb-3">
           <p className="text-xs text-[#6B6560]">
-            Showing <span className="font-medium text-[#1A1A1A]">{filtered.length}</span> of{" "}
+            Showing <span className="font-medium text-[#1A1A1A]">{cars.length}</span> of{" "}
             <span className="font-medium text-[#1A1A1A]">{cars.length}</span> vehicles
           </p>
         </div>
       </div>
 
-      {/* Cars grid */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <motion.div
+      {/* Cars Container */}
+          <div className="max-w-7xl mx-auto px-6 py-12">
+              {loading ? <Loading/>:  <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           <AnimatePresence mode="popLayout">
-            {filtered.length === 0 ? (
+            { cars.length === 0 ? (
               <NoResults />
             ) : (
-              filtered.map((car, i) => (
-                <motion.div
-                  key={car._id}
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className="group bg-white border border-[#E0D9D0] rounded-2xl overflow-hidden hover:shadow-lg hover:border-[#C0392B]/20 transition-all duration-300"
-                >
-                  {/* Image */}
-                  <div className="relative w-full h-44 overflow-hidden">
-                    <Image
-                      src={car.imageUrl}
-                      alt={car.carName}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <span
-                      className={`absolute top-3 right-3 text-[10px] font-semibold tracking-wider uppercase px-3 py-1 rounded-full ${
-                        car.availability === "Available"
-                          ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
-                          : "bg-red-50 text-red-500 border border-red-200"
-                      }`}
-                    >
-                      {car.availability}
-                    </span>
-                    <span className="absolute top-3 left-3 text-[10px] font-semibold tracking-wider uppercase px-3 py-1 rounded-full bg-[#1A0A0A]/60 text-[#F8F5F0] backdrop-blur-sm">
-                      {car.carType}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-4">
-                    <div className="flex items-start justify-between mb-1.5">
-                      <h3 className="text-sm font-semibold text-[#1A1A1A] leading-snug">
-                        {car.carName}
-                      </h3>
-                      <div className="text-right shrink-0 ml-2">
-                        <span className="text-base font-bold text-[#C0392B]">${car.dailyRentPrice}</span>
-                        <span className="text-[10px] text-[#6B6560]">/day</span>
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-[#6B6560] leading-relaxed mb-3 line-clamp-2">
-                      {car.description}
-                    </p>
-
-                    <div className="flex items-center gap-3 mb-4 text-xs text-[#6B6560]">
-                      <span className="flex items-center gap-1">
-                        <RiUserLine size={12} className="text-[#C0392B]" />
-                        {car.seats}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <TbManualGearbox size={12} className="text-[#C0392B]" />
-                        Auto
-                      </span>
-                      <span className="flex items-center gap-1 truncate">
-                        <RiMapPinLine size={12} className="text-[#C0392B]" />
-                        {car.location.split(",")[0]}
-                      </span>
-                    </div>
-
-                    <Link
-                      href={`/cars/${car._id}`}
-                      className={`flex items-center justify-center gap-1.5 w-full text-xs font-medium py-2.5 rounded-xl transition-all duration-200 no-underline group/btn ${
-                        car.availability === "Available"
-                          ? "bg-[#C0392B] hover:bg-[#922B21] text-white"
-                          : "bg-[#F8F5F0] text-[#C4BDB7] border border-[#E0D9D0] pointer-events-none"
-                      }`}
-                    >
-                      View Details
-                      {car.availability === "Available" && (
-                        <BsArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform duration-200" />
-                      )}
-                    </Link>
-                  </div>
-                </motion.div>
+              cars.map((car, i) => (
+                  <CarCard key={car._id} i={i} car={ car} />
               ))
             )}
           </AnimatePresence>
-        </motion.div>
+        </motion.div>}
+       
       </div>
     </div>
   );
