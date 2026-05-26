@@ -1,4 +1,5 @@
 import CarsPage from "@/components/carspage/CarsPage";
+import Footer from "@/components/shared/Footer";
 
 // app/cars/page.jsx
 export const metadata = {
@@ -14,5 +15,8 @@ export const metadata = {
 
 
 export default function Page() {
-  return <CarsPage />;
+  return<>
+    <CarsPage />
+  
+  </> ;
 }

@@ -1,4 +1,5 @@
 import AddCarPage from "@/components/AddCarPage";
+import Footer from "@/components/shared/Footer";
 
 export const metadata = {
   title: "Add Car - NexDrive",
@@ -6,5 +7,8 @@ export const metadata = {
 }
 
 export default function page() {
-  return <AddCarPage/>
+  return <>
+    <AddCarPage />
+    <Footer/>
+  </>
 }

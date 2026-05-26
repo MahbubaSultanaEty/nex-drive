@@ -6,9 +6,20 @@ import WhyRentSection from "@/components/cardetailpage/WhyRentSection";
 import Link from "next/link";
 import { RiArrowLeftLine } from "react-icons/ri";
 
+
+export async function generateMetadata({ params }) {
+    const {id}= await params
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${id}`);
+    const car= await res.json();
+    return {
+        title: `${car.carName}-NexDrive`,
+        description: car.description,
+    }
+}
+
 export default async function CarDetailsPage({ params }) {
   const { id } =await params;
-const res = await fetch(`http://localhost:5000/cars/${id}`)
+const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${id}`)
     const car = await res.json();
     
     const resForAllCar = await fetch(`http://localhost:5000/cars`);
