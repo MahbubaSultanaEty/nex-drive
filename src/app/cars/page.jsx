@@ -1,3 +1,5 @@
+import CarsPage from "@/components/carspage/CarsPage";
+
 // app/cars/page.jsx
 export const metadata = {
   title: "Explore Cars — NexDrive",
@@ -10,7 +12,7 @@ export const metadata = {
   },
 };
 
-import CarsPage from "@/components/CarsPage";
+
 export default function Page() {
   return <CarsPage />;
 }

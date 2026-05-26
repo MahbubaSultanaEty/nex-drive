@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {  RiSearchLine, RiCloseLine } from "react-icons/ri";
 
-import CarCard from "./CarCard";
 import { Button } from "@heroui/react";
+import CarCard from "../CarCard";
 
 const carTypes = ["All", "Sedan", "SUV", "Hatchback", "Luxury", "Electric", "Convertible", "Pickup Truck"];
 
