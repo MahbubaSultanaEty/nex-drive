@@ -25,7 +25,7 @@ const SignUpForm = () => {
 
     <Input
       className="w-full bg-[#F8F5F0] border border-[#E0D9D0] rounded-2xl px-4 py-3.5 text-sm text-[#1A1A1A] placeholder:text-[#A8A19B] focus:outline-none focus:border-[#C0392B] focus:ring-4 focus:ring-[#C0392B]/10 transition-all duration-200"
-      placeholder="John Doe"
+      placeholder="Your Name"
     />
   </TextField>
 
@@ -49,7 +49,7 @@ const SignUpForm = () => {
 
     <Input
       className="w-full bg-[#F8F5F0] border border-[#E0D9D0] rounded-2xl px-4 py-3.5 text-sm text-[#1A1A1A] placeholder:text-[#A8A19B] focus:outline-none focus:border-[#C0392B] focus:ring-4 focus:ring-[#C0392B]/10 transition-all duration-200"
-      placeholder="john@example.com"
+      placeholder="Enter Your Name"
     />
 
     <FieldError className="text-xs text-[#C0392B] mt-1" />

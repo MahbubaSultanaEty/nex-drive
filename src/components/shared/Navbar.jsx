@@ -43,7 +43,7 @@ export default function Navbar() {
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm transition-all duration-200 no-underline ${
                   isActive
                     ? "bg-[#C0392B] text-white font-medium"
-                    : "text-[#beb7b2de] hover:text-[#1A1A1A] hover:bg-[#1A1A1A]/5"
+                    : "text-[#d1c6bdde] hover:text-[#1A1A1A] hover:bg-[#1A1A1A]/5"
                 }`}
               >
                 <Icon size={15} />
@@ -74,7 +74,7 @@ export default function Navbar() {
             aria-label="Toggle menu"
             className="text-[#1A1A1A] p-1"
           >
-            {menuOpen ? <RiCloseLine color="#C0392B" size={22} /> : <RiMenuLine color="#C0392B" size={22} />}
+            {menuOpen ? <RiCloseLine color="white" size={22} /> : <RiMenuLine color="white" size={22} />}
           </button>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function Navbar() {
                 className={`flex items-center gap-3 px-6 py-3.5 text-sm border-b border-[#E0D9D0]/50 last:border-none no-underline transition-colors duration-150 ${
                   isActive
                     ? "text-[#C0392B] font-medium bg-[#C0392B]/5"
-                    : "text-[#beb7b2e8] hover:text-[#1A1A1A] hover:bg-[#1A1A1A]/4"
+                    : "text-[#e0d9d4e8] hover:text-[#1A1A1A] hover:bg-[#1A1A1A]/4"
                 }`}
               >
                 <Icon size={17} />

@@ -14,7 +14,7 @@ const SignupPage = () => {
             fill
             className='object-cover'
             alt='cars ' />
-          <div className='absolute inset-0 bg-black/70'/>
+          <div className='absolute inset-0 bg-[#C0392B]/50'/>
 </div>
 
       <div className="relative z-10 w-full max-w-md bg-[ivory] border border-[#E0D9D0] rounded-[28px] p-8 shadow-sm">         
@@ -30,7 +30,7 @@ const SignupPage = () => {
           </h1>
 
           <p className="text-sm text-[#6B6560] mt-2 leading-relaxed ">
-            Create your account and get access to car detials, renting and bookings. <span ><Star className='inline'/></span>
+            Create your account and get access to car details, renting and bookings. <span ><Star className='inline'/></span>
           </p>
         </div>
 
