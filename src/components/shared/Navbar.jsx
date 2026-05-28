@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { HiOutlineHome, HiOutlineViewGrid, HiOutlinePlusCircle, HiOutlineBookOpen } from "react-icons/hi";
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import { MdOpenInNew } from "react-icons/md";
 import { authClient } from "@/lib/auth-client";
 import { BiLogOut } from "react-icons/bi";
 import { Avatar } from "@heroui/react";
+import { toast } from "react-toastify";
 
 const navLinks = [
   { label: "Home",         href: "/",            icon: HiOutlineHome },
@@ -29,14 +30,15 @@ export default function Navbar() {
  
   const user = session?.user;
 
-  const handleLogout = () => {
-    console.log("logout");
+  const handleLogout = async() => {
+    await authClient.signOut();
+    redirect("/login");
+    toast("  Logged Out ")
   }
   return (
     <header className="sticky top-0 z-50 bg-black/20 backdrop-blur-sm md:border-b-0  border-b border-[#E0D9D0]/40">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-   
-              
+ 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
           <span className="w-2 h-2 rounded-full bg-[#C0392B]" />

@@ -1,9 +1,18 @@
 "use client"
+import { authClient } from '@/lib/auth-client';
+import { google } from 'better-auth';
 import { FcGoogle } from 'react-icons/fc';
+import { toast } from 'react-toastify';
 
 const GoogleSignInBtn = () => {
-      const handleGoogleLogin = () => {
-    console.log("Google Login");
+      const handleGoogleLogin = async() => {
+        const data = await authClient.signIn.social({
+          provider: "google",
+          callbackURL: "/"
+        })
+        if (data) {
+          toast.success("  Signing in...")
+        }
   };
     return (
         <button
