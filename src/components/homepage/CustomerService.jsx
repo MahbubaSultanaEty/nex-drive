@@ -52,6 +52,7 @@ export default function CustomerService() {
                   src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80"
                   alt="NexDrive car rental service"
                   fill
+                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>

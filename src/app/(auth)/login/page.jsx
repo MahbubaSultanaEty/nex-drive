@@ -33,7 +33,7 @@ const page = () => {
             
             </div>
 
-              <div className="w-full md:w-1/2 flex items-center justify-center px-6 py-6 md:py-10">
+              <div className="w-full md:w-1/2 flex items-center justify-center px-6 py-6 md:py-10 bg-[#C0392B]/80">
                 <div className='w-full max-w-md bg-white border border-[#E0D9D0] rounded-[28px] p-12 shadow-sm'>
                         {/* Form */}
                 <LoginForm/>

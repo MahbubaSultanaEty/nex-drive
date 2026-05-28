@@ -229,7 +229,7 @@ export default function AddCarPage() {
                   {/* Image Preview */}
                   {imageUrl && (
                     <div className="relative w-full h-48 rounded-xl overflow-hidden border border-[#E0D9D0]">
-                      <Image src={imageUrl} alt="Car preview" fill className="object-cover" />
+                      <Image src={imageUrl} alt="Car preview" fill className="object-cover"  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                       <span className="absolute bottom-3 left-3 text-xs text-white/80 bg-black/30 px-2.5 py-1 rounded-full backdrop-blur-sm">
                         Preview

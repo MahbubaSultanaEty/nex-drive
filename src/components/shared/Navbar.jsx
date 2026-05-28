@@ -6,6 +6,9 @@ import { usePathname } from "next/navigation";
 import { HiOutlineHome, HiOutlineViewGrid, HiOutlinePlusCircle, HiOutlineBookOpen } from "react-icons/hi";
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import { MdOpenInNew } from "react-icons/md";
+import { authClient } from "@/lib/auth-client";
+import { BiLogOut } from "react-icons/bi";
+import { Avatar } from "@heroui/react";
 
 const navLinks = [
   { label: "Home",         href: "/",            icon: HiOutlineHome },
@@ -19,6 +22,16 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
+   const { 
+        data: session, 
+        isPending,         
+  } = authClient.useSession() 
+ 
+  const user = session?.user;
+
+  const handleLogout = () => {
+    console.log("logout");
+  }
   return (
     <header className="sticky top-0 z-50 bg-black/20 backdrop-blur-sm md:border-b-0  border-b border-[#E0D9D0]/40">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -54,21 +67,75 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop login */}
+                   {user ? (
+        <div className="flex hidden md:inline-flex items-center gap-3">
+          
+          <Link href="/profile">
+                <Avatar>
+                  <Avatar.Image
+                   src={user.image || ""}
+              name={user.name}
+              className="cursor-pointer"
+                  >                   
+                  </Avatar.Image> 
+                  <Avatar.Fallback>{ user?.name[0]}</Avatar.Fallback>
+           
+            </Avatar>
+             
+          </Link>
+
+          <button
+            onClick={handleLogout}
+            className="hidden md:inline-flex flex items-center gap-2 text-xs font-medium text-white bg-[#C0392B] px-4 py-1.5 rounded-full"
+          >
+            <BiLogOut size={14} />
+            Logout
+          </button>
+        </div>
+      ) : (
         <Link
           href="/login"
-          className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-white bg-[#C0392B] hover:bg-[#922B21] px-5 py-2 rounded-full transition-colors duration-200 no-underline"
+          className="hidden md:inline-flex text-xs font-medium text-white bg-[#C0392B] px-4 py-1.5 rounded-full no-underline"
         >
           Login
         </Link>
+      )}
 
         {/* Mobile right */}
         <div className="flex md:hidden items-center gap-3">
-          <Link
-            href="/login"
-            className="text-xs font-medium text-white bg-[#C0392B] px-4 py-1.5 rounded-full no-underline"
-          >
-            Login
+           {user ? (
+        <div className="flex items-center gap-3">
+          
+          <Link href="/profile">
+                <Avatar>
+                  <Avatar.Image
+                   src={user.image || ""}
+              name={user.name}
+              className="cursor-pointer"
+                  >                   
+                  </Avatar.Image> 
+                  <Avatar.Fallback>{ user?.name[0]}</Avatar.Fallback>
+           
+            </Avatar>
+             
           </Link>
+
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-xs font-medium text-white bg-[#C0392B] px-4 py-1.5 rounded-full"
+          >
+            <BiLogOut size={14} />
+            Logout
+          </button>
+        </div>
+      ) : (
+        <Link
+          href="/login"
+          className="text-xs font-medium text-white bg-[#C0392B] px-4 py-1.5 rounded-full no-underline"
+        >
+          Login
+        </Link>
+      )}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import BannerSlider from "./BannerSlider";
 import Image from "next/image";
 
@@ -32,7 +33,7 @@ export default function Banner() {
               src="/logo.png"
               alt="NexDrive — Premium Car Rental"
               width={150}
-              height={44}
+              height={44}             
               priority
               className="object-contain"
             />
@@ -53,14 +54,14 @@ export default function Banner() {
             doorstep delivery — wherever you are.
           </p>
 
-          {/* CTAs */}
+          {/* CTAs btns */}
           <div className="flex flex-wrap gap-3 mb-14">
-            <a
+            <Link
               href="/cars"
               className="inline-flex items-center gap-2 bg-[#C0392B] hover:bg-[#922B21] text-white text-sm font-medium px-7 py-3 rounded-full transition-colors duration-200 no-underline"
             >
               Explore Cars
-            </a>
+            </Link>
             <a
               href="#how-it-works"
               className="inline-flex items-center gap-2 bg-white/8 hover:bg-white/12 border border-white/15 text-[#F8F5F0] text-sm font-medium px-7 py-3 rounded-full transition-colors duration-200 no-underline"

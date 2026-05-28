@@ -40,6 +40,7 @@ export default function Footer() {
               alt="NexDrive Logo"
               width={130}
               height={40}
+               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-contain brightness-0 invert"
             />
           </div>

@@ -1,13 +1,39 @@
 "use client"
-import { Check } from '@gravity-ui/icons';
+import { authClient } from '@/lib/auth-client';
+import { Check, Eye, EyeSlash } from '@gravity-ui/icons';
 import { Button, Description, FieldError, Form, Input, Label, TextField } from '@heroui/react';
-import React from 'react';
+import { redirect } from 'next/navigation';
+import {  useState } from 'react';
+import { Toaster, toast as hotToast } from 'react-hot-toast';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 const SignUpForm = () => {
+  
+  const [showPassword, setShowPassword] = useState(false);
+  const [isPending, setIsPending] = useState(false);
 
-    const handleSubmit = () => {
-        console.log("form submitted");
+  const handleSubmit =async (e) => {
+    e.preventDefault();
+    setIsPending(true)
+      const formData = new FormData(e.currentTarget);
+      const user =Object.fromEntries(formData.entries());
+
+      const { data, error } = await authClient.signUp.email({
+        email: user.email,
+        password: user.password,
+        name: user.name,
+        image: user.image
+      })
+    if (data) {
+      toast.success("Account Created   ō͡≡o")
+      redirect("/")
+    } 
+    if (!data) {
+      hotToast.error(`${error.message}`)
+    }
+    setIsPending(false)
+    console.log(data, error);
     }
     return (
   <Form className="w-full flex flex-col gap-5 " onSubmit={handleSubmit}>
@@ -49,7 +75,7 @@ const SignUpForm = () => {
 
     <Input
       className="w-full bg-[#F8F5F0] border border-[#E0D9D0] rounded-2xl px-4 py-3.5 text-sm text-[#1A1A1A] placeholder:text-[#A8A19B] focus:outline-none focus:border-[#C0392B] focus:ring-4 focus:ring-[#C0392B]/10 transition-all duration-200"
-      placeholder="Enter Your Name"
+      placeholder="Enter Your Email"
     />
 
     <FieldError className="text-xs text-[#C0392B] mt-1" />
@@ -77,7 +103,7 @@ const SignUpForm = () => {
     isRequired
     minLength={8}
     name="password"
-    type="password"
+    type={showPassword? "text":"password"}
     validate={(value) => {
       if (value.length < 8) {
         return "Password must be at least 8 characters";
@@ -93,7 +119,7 @@ const SignUpForm = () => {
 
       return null;
     }}
-    className="flex flex-col gap-2"
+    className="relative flex flex-col gap-2"
   >
     <Label className="text-xs font-medium text-[#6B6560] uppercase tracking-[2px]">
       Password
@@ -108,7 +134,10 @@ const SignUpForm = () => {
       Minimum 8 characters, including uppercase letter and number
     </Description>
 
-    <FieldError className="text-xs text-[#C0392B] mt-1" />
+          <FieldError className="text-xs text-[#C0392B] mt-1" />
+          <span onClick={()=> setShowPassword(!showPassword)} className="absolute top-10 right-6">
+{showPassword? <Eye/>: <EyeSlash/>}
+        </span>
   </TextField>
 
   {/* Buttons */}
@@ -119,7 +148,8 @@ const SignUpForm = () => {
       className="flex-1 flex items-center justify-center gap-2 bg-[#C0392B] hover:bg-[#922B21] text-white text-sm font-medium px-6 py-3.5 rounded-2xl transition-all duration-200"
     >
       <Check />
-      Create Account
+            Create Account 
+          
     </Button>
 
     <Button

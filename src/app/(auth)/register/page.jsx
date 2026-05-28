@@ -4,16 +4,20 @@ import { Star } from '@gravity-ui/icons';
 import { Button } from '@heroui/react';
 import Image from 'next/image';
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 
 const SignupPage = () => {
     return (
       <section className="relative min-h-screen bg-[#F8F5F0] flex items-center justify-center px-6 py-16">
+          <Toaster/>
         <div className='absolute inset-0 '>
             <Image
               src={"/cars.jpg"}
             fill
             className='object-cover'
-            alt='cars ' />
+            alt='cars '
+             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
           <div className='absolute inset-0 bg-[#C0392B]/50'/>
 </div>
 
