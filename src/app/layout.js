@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 const ubuntu =Ubuntu({
   variable: "ubuntu",
@@ -27,7 +28,8 @@ export default function RootLayout({ children }) {
       
       <body className="min-h-full flex flex-col">
         <div className="relative">
-          <ToastContainer/>
+          <ToastContainer />
+          <Toaster/>
           <div className="fixed top-0 left-0 right-0 z-50">
             <Navbar />
           </div>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { RiUserLine, RiFileTextLine, RiCheckboxCircleLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 
-export default function BookingCard({ car }) {
+export default function BookingCard({ booking}) {
   const [driverNeeded, setDriverNeeded] = useState("No");
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);

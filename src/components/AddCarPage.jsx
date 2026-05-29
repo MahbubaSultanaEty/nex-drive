@@ -25,6 +25,10 @@ import {
   RiSaveLine,
   RiCloseLine,
 } from "react-icons/ri";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
+
 
 const seatOptions = ["2", "4", "5", "6", "7", "8"];
 const availabilityOptions = ["Available", "Unavailable"];
@@ -34,13 +38,19 @@ const inputWrapperClass = "w-full bg-[#F8F5F0] border border-[#E0D9D0] rounded-x
 
 export default function AddCarPage() {
   const [imageUrl, setImageUrl] = useState("");
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
 
     const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-      const car = Object.fromEntries(formData.entries());
+      const car = {
+        ...Object.fromEntries(formData.entries()),
+        userId: user?.id
+      };
+      console.log(car);
         
-      const res = await fetch("http://localhost:5000/cars", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars`, {
           method: "POST",
           headers: {
               "content-type": "application/json"
@@ -48,7 +58,10 @@ export default function AddCarPage() {
           body: JSON.stringify(car)
       })
         const data= await res.json()
-    console.log(data);
+      if (data) {
+        toast.success("Added Car to Fleet");
+        redirect("/my-added-cars")
+    }
   };
 
   return (
