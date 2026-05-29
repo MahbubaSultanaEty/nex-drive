@@ -23,10 +23,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-   const { 
-        data: session, 
-        isPending,         
-  } = authClient.useSession() 
+   const { data: session, } = authClient.useSession() 
  
   const user = session?.user;
 
@@ -58,7 +55,7 @@ export default function Navbar() {
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm transition-all duration-200 no-underline ${
                   isActive
                     ? "bg-[#C0392B] text-white font-medium"
-                    : "text-[#d1c6bdde] hover:text-[#1A1A1A] hover:bg-[#1A1A1A]/5"
+                    : "text-[#e0dedcde] hover:text-[#1A1A1A] hover:bg-[#1A1A1A]/5"
                 }`}
               >
                 <Icon size={15} />

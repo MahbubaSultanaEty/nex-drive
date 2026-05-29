@@ -1,18 +1,25 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { RiUserLine, RiFileTextLine, RiCheckboxCircleLine } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 export default function BookingCard({ car }) {
   const [driverNeeded, setDriverNeeded] = useState("No");
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);
 
+     const { data: session, } = authClient.useSession() 
+  const user = session?.user;
+
   const handleBooking = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     const bookingData = {
+      userId: user?.id,
+      userName:user?.name,
       carId: car._id,
       carName: car.carName,
       dailyRentPrice: car.dailyRentPrice,
@@ -30,10 +37,10 @@ export default function BookingCard({ car }) {
       });
       const data = await res.json();
       console.log(data);
-      // success toast here
+      toast.success("Booking Successfull")
     } catch (err) {
       console.error(err);
-      // error toast here
+      toast.error("Booking Failed")
     } finally {
       setLoading(false);
     }
@@ -119,7 +126,7 @@ export default function BookingCard({ car }) {
             </div>
           </div>
 
-          {/* Book button */}
+          {/* Booking button */}
           <button
             type="submit"
             disabled={car.availability !== "Available" || loading}

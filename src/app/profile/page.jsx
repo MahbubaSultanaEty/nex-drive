@@ -130,7 +130,7 @@ export default async function ProfilePage() {
                 </Link>
 
                 <Link
-                  href="/my-cars"
+                  href="/my-added-cars"
                   className="bg-[#F8F5F0] hover:bg-[#C0392B] hover:text-white border border-[#E0D9D0] rounded-2xl p-5 transition-all duration-200 no-underline"
                 >
                   <h3 className="text-base font-semibold">
