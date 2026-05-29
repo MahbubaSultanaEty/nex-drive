@@ -72,7 +72,7 @@ export default function EditCarModal({ car }) {
     const data = await res.json();
 
     console.log(data);
-
+    window.location.reload()
     setOpen(false);
   };
 
@@ -95,7 +95,7 @@ export default function EditCarModal({ car }) {
 
             {/* Header */}
             <Modal.Header>
-              <Modal.Icon className="bg-[#FDEDEC] text-[#3cc02b]">
+              <Modal.Icon className="bg-[#FDEDEC] text-[#2d2bc0]">
                               <Car size={24} />
               </Modal.Icon>
 

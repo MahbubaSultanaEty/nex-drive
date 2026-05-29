@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { HiOutlineHome, HiOutlineViewGrid, HiOutlinePlusCircle, HiOutlineBookOpen } from "react-icons/hi";
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import { MdOpenInNew } from "react-icons/md";
@@ -10,6 +10,7 @@ import { authClient } from "@/lib/auth-client";
 import { BiLogOut } from "react-icons/bi";
 import { Avatar } from "@heroui/react";
 import { toast } from "react-toastify";
+
 
 const navLinks = [
   { label: "Home",         href: "/",            icon: HiOutlineHome },
@@ -22,6 +23,7 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
    const { data: session, } = authClient.useSession() 
  
@@ -29,8 +31,9 @@ export default function Navbar() {
 
   const handleLogout = async() => {
     await authClient.signOut();
-    redirect("/login");
-    toast("  Logged Out ")
+    
+    toast("logged Out");
+    router.push("/login");
   }
   return (
     <header className="sticky top-0 z-50 bg-black/20 backdrop-blur-sm md:border-b-0  border-b border-[#E0D9D0]/40">
