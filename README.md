@@ -14,7 +14,9 @@
 - 📅 **Instant Booking System** — Book any available car with driver options, special notes, and automatic price calculation
 - 🔍 **Smart Search & Filter** — Search cars by name using MongoDB `$regex` operator and filter by car type in real time
 - 📱 **Fully Responsive** — Optimized for mobile, tablet, and desktop with a clean Ivory & Crimson design theme
-
+- 🔒 **JWT Cookie Protection** — Private routes secured with HTTPOnly cookie-based JWT tokens
+- 📋 **My Bookings** — Users can view and manage all their personal bookings in one place
+- 🚗 **My Added Cars** — Car owners can manage their own listings with full edit and delete control
 ---
 
 ## Tech Stack
@@ -33,6 +35,10 @@
 **Auth**
 - BetterAuth
 
+**Security**
+- JWT (HTTPOnly Cookies)
+- Private Route Protection
+  
 ---
 
 ## Pages
