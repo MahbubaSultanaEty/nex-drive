@@ -47,6 +47,7 @@
 | My Added Cars | `/my-added-cars` |
 | Login | `/login` |
 | Register | `/register` |
+| profile | `/profile` |
 
 ---
 
