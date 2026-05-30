@@ -36,7 +36,11 @@ export default async function CarDetailsPage({ params }) {
   });
   const car = await res.json();
     
-  const resForAllCar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars`); // 
+  const resForAllCar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  }); // 
   const allCar = await resForAllCar.json();
   const similarCars = allCar.filter(c => c.carType === car.carType);
 

@@ -6,7 +6,7 @@ import { BsArrowRight } from "react-icons/bs";
 
 
 export default async function AvailableCars() {
-    const res = await fetch("http://localhost:5000/cars");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars`);
     const cars = await res.json();
     const availableCars= cars.filter(c=> c.availability === "Available")
   return (
