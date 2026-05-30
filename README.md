@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NexDrive 🚗
+
+### A Premium Car Rental Platform
+
+**Live Site:** [https://nexdrive.vercel.app](https://nexdrive.vercel.app)
+**Server:** [https://nexdrive-server.vercel.app](https://nexdrive-server.vercel.app)
+
+---
+
+## Features
+
+- 🔐 **Secure Authentication** — Email/password and Google login powered by BetterAuth with JWT token protection
+- 🚘 **Full Car Management** — Add, update, and delete your own car listings with image preview and real-time availability control
+- 📅 **Instant Booking System** — Book any available car with driver options, special notes, and automatic price calculation
+- 🔍 **Smart Search & Filter** — Search cars by name using MongoDB `$regex` operator and filter by car type in real time
+- 📱 **Fully Responsive** — Optimized for mobile, tablet, and desktop with a clean Ivory & Crimson design theme
+
+---
+
+## Tech Stack
+
+**Frontend**
+- Next.js 15 (App Router)
+- Tailwind CSS
+- HeroUI
+- Framer Motion
+- React Icons
+
+**Backend**
+- Node.js + Express.js
+- MongoDB (Native Driver)
+
+**Auth**
+- BetterAuth
+
+---
+
+## Pages
+
+| Page | Route |
+|------|-------|
+| Home | `/` |
+| Explore Cars | `/cars` |
+| Car Details | `/cars/[id]` |
+| Add Car | `/add-car` |
+| My Bookings | `/my-bookings` |
+| My Added Cars | `/my-added-cars` |
+| Login | `/login` |
+| Register | `/register` |
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js v18+
+- MongoDB Atlas account
+
+### Clone the repo
 
 ```bash
+git clone https://github.com/MahbubaSultanaEty/nexdrive-client.git
+cd nexdrive-client
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Create a `.env.local` file in the root:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+BETTER_AUTH_SECRET=your_secret_here
+BETTER_AUTH_URL=http://localhost:3000
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
 
-## Learn More
+### Backend Setup
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+git clone https://github.com/MahbubaSultanaEty/nexdrive-server.git
+cd nexdrive-server
+npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a `.env` file:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+MONGO_URI=your_mongodb_uri
+PORT=5000
+```
 
-## Deploy on Vercel
+```bash
+node index.js
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Author
+
+**Mahbuba Sultana**
+- GitHub: [https://github.com/MahbubaSultanaEty](https://github.com/yourusername)
+- LinkedIn: [https://www.linkedin.com/in/mahbuba-sultana09/](https://linkedin.com/in/yourprofile)
+
+---
+
+> Built with ❤️ as part of an assignment project. Design theme: Ivory & Crimson.

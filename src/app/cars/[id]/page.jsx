@@ -40,7 +40,7 @@ export default async function CarDetailsPage({ params }) {
     headers: {
       authorization: `Bearer ${token}`
     }
-  }); // 
+  }); 
   const allCar = await resForAllCar.json();
   const similarCars = allCar.filter(c => c.carType === car.carType);
 
