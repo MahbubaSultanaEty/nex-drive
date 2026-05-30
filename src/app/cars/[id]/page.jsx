@@ -1,30 +1,44 @@
 import BookingCard from "@/components/cardetailpage/bookingCard";
+
 import CarImage from "@/components/cardetailpage/CarImage";
 import CarInfo from "@/components/cardetailpage/CarInfo";
 import SimilarCars from "@/components/cardetailpage/SimilarCars";
 import WhyRentSection from "@/components/cardetailpage/WhyRentSection";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { RiArrowLeftLine } from "react-icons/ri";
 
-
 export async function generateMetadata({ params }) {
-    const {id}= await params
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${id}`);
-    const car= await res.json();
-    return {
-        title: `${car.carName}-NexDrive`,
-        description: car.description,
-    }
+  const { id } = await params;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${id}`);
+  if (!res.ok) return { title: "Car Details - NexDrive" };
+  const car = await res.json();
+  return {
+    title: `${car.carName} - NexDrive`,
+    description: car.description,
+  }
 }
 
 export default async function CarDetailsPage({ params }) {
-  const { id } =await params;
-const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${id}`)
-    const car = await res.json();
+  const { id } = await params;
+  
+  const tokenData = await auth.api.getToken({
+    headers: await headers()
+  })
+  const token = tokenData?.token;
+  console.log(token);
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  });
+  const car = await res.json();
     
-    const resForAllCar = await fetch(`http://localhost:5000/cars`);
-    const allCar = await resForAllCar.json();
-    const similarCars = allCar.filter(c => c.carType === car.carType);
+  const resForAllCar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars`); // 
+  const allCar = await resForAllCar.json();
+  const similarCars = allCar.filter(c => c.carType === car.carType);
 
   return (
     <div className="min-h-screen bg-[#F8F5F0] pt-20">

@@ -89,7 +89,7 @@ export default function CarsPage() {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars?${params}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setCars(data);
                 setLoading(false)
             })

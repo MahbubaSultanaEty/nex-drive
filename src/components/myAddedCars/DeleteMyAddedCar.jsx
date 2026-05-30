@@ -7,12 +7,15 @@ import { toast } from "react-toastify";
 
 export function DeleteMyAddedCar({ car }) {
    
-  const handleDeleteCar =async () => {
+  const handleDeleteCar = async () => {
+    
+     const { data: tokenData } = await authClient.token();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${car._id}`, {
           method: "DELETE",
-          headers: {
-              "content-type": "application/json"
-          }
+           headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`
+      },
       })  
       const data = await res.json();
        if (data.deletedCount > 0) {

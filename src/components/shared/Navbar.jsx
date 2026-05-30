@@ -25,7 +25,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-   const { data: session, } = authClient.useSession() 
+   const { data: session } = authClient.useSession() 
  
   const user = session?.user;
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { RiUserLine, RiFileTextLine, RiCheckboxCircleLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 
-export default function BookingCard({ booking}) {
+export default function BookingCard({ car}) {
   const [driverNeeded, setDriverNeeded] = useState("No");
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,10 +29,15 @@ export default function BookingCard({ booking}) {
       bookingDate: new Date(),
     };
 
+    const { data: tokenData } = await authClient.token();
+        
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`
+      }, 
         body: JSON.stringify(bookingData),
       });
       const data = await res.json();

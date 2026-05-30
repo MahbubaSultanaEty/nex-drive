@@ -17,6 +17,7 @@ import { BiDollar, BiEdit, BiImage } from "react-icons/bi";
 import { Car, MapPin } from "@gravity-ui/icons";
 import { BsSave } from "react-icons/bs";
 import { PiUserSquareFill } from "react-icons/pi";
+import { authClient } from "@/lib/auth-client";
 
 
 
@@ -58,13 +59,15 @@ export default function EditCarModal({ car }) {
 
     console.log(updatedCar);
 
+     const { data: tokenData } = await authClient.token();
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/cars/${_id}`,
       {
         method: "PATCH",
         headers: {
-          "content-type": "application/json",
-        },
+        "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`
+      },
         body: JSON.stringify(updatedCar),
       }
     );
@@ -128,7 +131,7 @@ export default function EditCarModal({ car }) {
                         type="number"
                         placeholder="120"
                         className="rounded-2xl"
-                        startContent={<BiDollar size={16} />}
+                        
                       />
 
                       <FieldError />
@@ -147,7 +150,7 @@ export default function EditCarModal({ car }) {
                         type="number"
                         placeholder="4"
                         className="rounded-2xl"
-                        startContent={<PiUserSquareFill size={16} />}
+                        
                       />
 
                       <FieldError />
@@ -229,7 +232,7 @@ export default function EditCarModal({ car }) {
                         <Input
                           placeholder="Dhaka, Gulshan"
                           className="rounded-2xl"
-                          startContent={<MapPin size={16} />}
+                         
                         />
 
                         <FieldError />
@@ -249,7 +252,7 @@ export default function EditCarModal({ car }) {
                           type="url"
                           placeholder="https://example.com/car.jpg"
                           className="rounded-2xl"
-                          startContent={<BiImage size={16} />}
+                         
                         />
 
                         <FieldError />

@@ -27,7 +27,7 @@ import {
 } from "react-icons/ri";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 
 const seatOptions = ["2", "4", "5", "6", "7", "8"];
@@ -41,26 +41,31 @@ export default function AddCarPage() {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
-    const handleSubmit = async (e) => {
-    e.preventDefault();
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();  
     const formData = new FormData(e.target);
       const car = {
         ...Object.fromEntries(formData.entries()),
         userId: user?.id
       };
-      console.log(car);
+    console.log(car);
+    
+     const { data: tokenData } = await authClient.token();
         
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars`, {
           method: "POST",
           headers: {
-              "content-type": "application/json"
-          },
+        "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`
+      }, 
           body: JSON.stringify(car)
       })
         const data= await res.json()
       if (data) {
         toast.success("Added Car to Fleet");
-        redirect("/my-added-cars")
+        router.push("/my-added-cars")
     }
   };
 
