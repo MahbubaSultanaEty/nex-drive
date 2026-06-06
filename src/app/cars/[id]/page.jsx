@@ -1,11 +1,9 @@
 import BookingCard from "@/components/cardetailpage/bookingCard";
-
 import CarImage from "@/components/cardetailpage/CarImage";
 import CarInfo from "@/components/cardetailpage/CarInfo";
 import SimilarCars from "@/components/cardetailpage/SimilarCars";
 import WhyRentSection from "@/components/cardetailpage/WhyRentSection";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { RiArrowLeftLine } from "react-icons/ri";
 
@@ -17,45 +15,34 @@ export async function generateMetadata({ params }) {
   return {
     title: `${car.carName} - NexDrive`,
     description: car.description,
-  }
+  };
 }
 
 export default async function CarDetailsPage({ params }) {
   const { id } = await params;
-  
-  const tokenData = await auth.api.getToken({
-    headers: await headers()
-  })
-  const token = tokenData?.token;
-  console.log(token);
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${id}`, {
-    headers: {
-      authorization: `Bearer ${token}`
-    }
-  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/${id}`);
+
+  if (!res.ok) notFound();
+
   const car = await res.json();
-    
-  const resForAllCar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars`, {
-    headers: {
-      authorization: `Bearer ${token}`
-    }
-  }); 
+
+  if (!car || !car._id) notFound();
+
+  const resForAllCar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars`);
   const allCar = await resForAllCar.json();
-  const similarCars = allCar.filter(c => c.carType === car.carType);
+  const similarCars = allCar.filter((c) => c.carType === car.carType && c._id !== car._id);
 
   return (
     <div className="min-h-screen bg-[#F8F5F0] pt-20">
 
-          <div className="max-w-7xl mx-auto px-6 pt-8 pb-4">
-              <Link href="/cars">
-                    <button      
-      className="inline-flex items-center gap-2 text-sm text-[#6B6560] hover:text-[#C0392B] transition-colors duration-200"
-    >
-      <RiArrowLeftLine size={16} />
-      Back to Cars
-    </button>
-              </Link>
+      <div className="max-w-7xl mx-auto px-6 pt-8 pb-4">
+        <Link href="/cars">
+          <button className="inline-flex items-center gap-2 text-sm text-[#6B6560] hover:text-[#C0392B] transition-colors duration-200">
+            <RiArrowLeftLine size={16} />
+            Back to Cars
+          </button>
+        </Link>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 pb-16">
@@ -63,13 +50,9 @@ export default async function CarDetailsPage({ params }) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
           <div className="lg:col-span-2 flex flex-col gap-6">
-
             <CarImage car={car} />
-
             <CarInfo car={car} />
-
             <WhyRentSection />
-
           </div>
 
           <div className="lg:col-span-1">

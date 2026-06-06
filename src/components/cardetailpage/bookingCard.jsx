@@ -2,24 +2,32 @@
 
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { RiUserLine, RiFileTextLine, RiCheckboxCircleLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 
-export default function BookingCard({ car}) {
+export default function BookingCard({ car }) {
   const [driverNeeded, setDriverNeeded] = useState("No");
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-     const { data: session, } = authClient.useSession() 
+  const { data: session } = authClient.useSession();
   const user = session?.user;
 
   const handleBooking = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
     setLoading(true);
 
     const bookingData = {
       userId: user?.id,
-      userName:user?.name,
+      userName: user?.name,
       carId: car._id,
       carName: car.carName,
       dailyRentPrice: car.dailyRentPrice,
@@ -30,22 +38,22 @@ export default function BookingCard({ car}) {
     };
 
     const { data: tokenData } = await authClient.token();
-        
+
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings`, {
         method: "POST",
         headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${tokenData?.token}`
-      }, 
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
         body: JSON.stringify(bookingData),
       });
       const data = await res.json();
       console.log(data);
-      toast.success("Booking Successfull")
+      toast.success("Booking Successful");
     } catch (err) {
       console.error(err);
-      toast.error("Booking Failed")
+      toast.error("Booking Failed");
     } finally {
       setLoading(false);
     }
@@ -144,6 +152,12 @@ export default function BookingCard({ car}) {
             <RiCheckboxCircleLine size={16} />
             {loading ? "Booking..." : car.availability === "Available" ? "Book Now" : "Unavailable"}
           </button>
+
+          {!user && car.availability === "Available" && (
+            <p className="text-xs text-center text-[#6B6560]">
+              Please <span className="text-[#C0392B] font-medium cursor-pointer" onClick={() => router.push("/login")}>login</span> to book this car.
+            </p>
+          )}
 
           {car.availability !== "Available" && (
             <p className="text-xs text-center text-[#6B6560]">
