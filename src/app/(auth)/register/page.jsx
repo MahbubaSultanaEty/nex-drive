@@ -18,7 +18,7 @@ const SignupPage = () => {
             alt='cars '
              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className='absolute inset-0 bg-[#C0392B]/50'/>
+          <div className='absolute inset-0 '/>
 </div>
 
       <div className="relative z-10 w-full max-w-md bg-[ivory] border border-[#E0D9D0] rounded-[28px] p-8 shadow-sm">         
