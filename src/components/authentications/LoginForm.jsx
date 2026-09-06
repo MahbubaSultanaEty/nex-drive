@@ -44,7 +44,7 @@ const LoginForm =() =>  {
   };
 
   return (
-<Form className="flex w-96 flex-col gap-4" onSubmit={handleSubmit}>
+<Form className="flex w-full max-w-96 min-w-0 flex-col gap-4" onSubmit={handleSubmit}>
 <TextField
     isRequired
     name="email"
