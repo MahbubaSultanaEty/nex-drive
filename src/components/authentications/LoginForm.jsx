@@ -45,7 +45,7 @@ const LoginForm =() =>  {
 
   return (
 <Form className="flex w-96 flex-col gap-4" onSubmit={handleSubmit}>
-  <TextField
+<TextField
     isRequired
     name="email"
     type="email"
@@ -55,10 +55,10 @@ const LoginForm =() =>  {
       }
       return null;
     }}
-    className="flex flex-col gap-1.5"
+    className="w-full min-w-0 flex flex-col gap-1.5"
   >
     <Label className="text-xs font-medium text-[#6B6560] uppercase tracking-wider">Email</Label>
-    <Input className="w-full bg-white border border-[#E0D9D0] rounded-xl px-4 py-3 text-sm text-[#1A1A1A] placeholder:text-[#C4BDB7] focus:outline-none focus:border-[#C0392B] focus:ring-2 focus:ring-[#C0392B]/10 transition-all duration-200" placeholder="john@example.com" />
+    <Input className="w-full min-w-0 max-w-full box-border bg-white border border-[#E0D9D0] rounded-xl px-4 py-3 text-sm text-[#1A1A1A] placeholder:text-[#C4BDB7] focus:outline-none focus:border-[#C0392B] focus:ring-2 focus:ring-[#C0392B]/10 transition-all duration-200" placeholder="john@example.com" />
     <FieldError className="text-xs text-[#C0392B] mt-0.5" />
   </TextField>
 
@@ -73,10 +73,10 @@ const LoginForm =() =>  {
       if (!/[0-9]/.test(value)) return "Password must contain at least one number";
       return null;
     }}
-    className="relative flex flex-col gap-1.5"
+    className="relative w-full min-w-0 flex flex-col gap-1.5"
   >
     <Label className="text-xs font-medium text-[#6B6560] uppercase tracking-wider">Password</Label>
-    <Input className="w-full bg-white border border-[#E0D9D0] rounded-xl px-4 py-3 text-sm text-[#1A1A1A] placeholder:text-[#C4BDB7] focus:outline-none focus:border-[#C0392B] focus:ring-2 focus:ring-[#C0392B]/10 transition-all duration-200" placeholder="Enter your password" />
+    <Input className="w-full min-w-0 max-w-full box-border bg-white border border-[#E0D9D0] rounded-xl px-4 py-3 text-sm text-[#1A1A1A] placeholder:text-[#C4BDB7] focus:outline-none focus:border-[#C0392B] focus:ring-2 focus:ring-[#C0392B]/10 transition-all duration-200" placeholder="Enter your password" />
     <Description className="text-xs text-[#6B6560]">Must be at least 8 characters with 1 uppercase and 1 number</Description>
         <FieldError className="text-xs text-[#C0392B] mt-0.5" />
         <span onClick={()=> setShowPassword(!showPassword)} className="absolute top-9 right-6">
@@ -84,6 +84,7 @@ const LoginForm =() =>  {
         </span>
        
   </TextField>
+
 
           
           {/* form buttons */}
