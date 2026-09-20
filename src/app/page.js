@@ -4,6 +4,7 @@ import Banner from "@/components/homepage/Banner";
 import CustomerService from "@/components/homepage/CustomerService";
 import FeaturedCar from "@/components/homepage/FeaturedCar";
 import HowItWorks from "@/components/homepage/HowItWorks";
+import LuxurySection from "@/components/homepage/LuxurySection";
 import Footer from "@/components/shared/Footer";
 import Image from "next/image";
 
@@ -16,6 +17,7 @@ export default function Home() {
       <FeaturedCar />
       <AvailableCars/>
       <HowItWorks />
+      <LuxurySection/>
        <Footer/>
     </>
   );
