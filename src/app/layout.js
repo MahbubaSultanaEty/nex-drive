@@ -17,7 +17,12 @@ export const metadata = {
   title: "NexDrive - Luxury Car Rentals",
   description: "Rent premium cars, track your bookings, and manage your profile with NexDrive. Experience luxury travel and seamless car rentals.",
   keywords: ["car rental", "luxury cars", "bookings", "NexDrive", "travel", "premium cars"],
-  authors: [{ name: "Mahbuba Sultana", url: "https://yourwebsite.com" }],
+  authors: [
+  {
+    name: "Mahbuba Sultana",
+    url: "https://mahbuba-sultana.vercel.app",
+  },
+],
   creator: "Mahbuba Sultana",
   publisher: "NexDrive",
   metadataBase: new URL("https://nex-drive-phi.vercel.app"),
